@@ -55,7 +55,7 @@ group = groupName
 version = versionName
 
 mavenPublishing {
-    publishToMavenCentral(SonatypeHost.DEFAULT)
+    publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
     signAllPublications()
     coordinates(groupName, artifactName, versionName)
 
