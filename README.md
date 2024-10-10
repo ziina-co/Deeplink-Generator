@@ -1,4 +1,6 @@
 # Deeplink-Generator
+This library is a code generator that allows you to declare deeplinks in a simple way and generate
+the code to parse them into classes or objects under a sealed interface.
 
 ## Installation
 
