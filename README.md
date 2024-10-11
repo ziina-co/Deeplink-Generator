@@ -1,4 +1,6 @@
 # Deeplink-Generator
+This library is a code generator that allows you to declare deeplinks in a simple way and generate
+the code to parse them into classes or objects under a sealed interface.
 
 ## Installation
 
@@ -10,6 +12,36 @@ ksp("com.ziina.library:deeplinkgenerator:<version>")
 ```
 
 ## Usage
+
+### Declare supported schemas and hosts in the manifest
+First of all, you need to declare the supported schemas and hosts in the manifest file
+
+```xml
+
+<activity android:name=".DeepLinkActivity">
+    <intent-filter>
+        <action android:name="android.intent.action.VIEW" />
+
+        <category android:name="android.intent.category.DEFAULT" />
+        <category android:name="android.intent.category.BROWSABLE" />
+
+        <data android:scheme="example" />
+    </intent-filter>
+
+    <intent-filter android:autoVerify="true">
+        <action android:name="android.intent.action.VIEW" />
+
+        <category android:name="android.intent.category.DEFAULT" />
+        <category android:name="android.intent.category.BROWSABLE" />
+
+        <data android:scheme="https" />
+
+        <data android:host="example.com" />
+        <data android:host="www.example.com" />
+    </intent-filter>
+
+</activity>
+```
 
 ### Declare deeplinks
 
