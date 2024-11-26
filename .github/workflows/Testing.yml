@@ -53,4 +53,4 @@ jobs:
           personal_token: ${{ secrets.PERSONAL_TOKEN }}
           external_repository: vamotest/Deeplink-Generator-Allure-Report
           publish_branch: gh-pages
-          publish_dir: example/build/reports/allure-report/allureReport
+          publish_dir: allure-history
