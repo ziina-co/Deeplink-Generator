@@ -29,3 +29,18 @@ jobs:
         with:
           name: allure-results
           path: example/build/reports/allure-report/allureReport
+
+      - name: Allure Report History
+        uses: simple-elf/allure-report-action@master
+        if: always()
+        with:
+          allure_results: allure-results
+          allure_history: allure-history
+
+      - name: Deploy to Deeplink-Generator-Allure-Report
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          personal_token: ${{ secrets.PERSONAL_TOKEN }}
+          external_repository: vamotest/Deeplink-Generator-Allure-Report
+          publish_branch: gh-pages
+          publish_dir: example/build/reports/allure-report/allureReport
