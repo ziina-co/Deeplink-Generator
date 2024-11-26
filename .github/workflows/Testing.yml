@@ -22,27 +22,25 @@ jobs:
           cache: 'gradle'
 
       - name: Lint, Unit tests, Coverage, and Generate Allure Results
-        run: ./gradlew test allureReport
-
-      - name: Attach CI Artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: allure-results
-          path: example/build/reports/allure-report/allureReport
+        run: ./gradlew test
 
       - name: Get Allure History
-        uses: actions/checkout@v4
+        uses: actions/checkout@v2
+        if: always()
+        continue-on-error: true
         with:
-          repository: vamotest/Deeplink-Generator-Allure-Report
-          token: ${{ secrets.PERSONAL_TOKEN }}
           ref: gh-pages
           path: gh-pages
+          external_repository: vamotest/Deeplink-Generator-Allure-Report
+          token: ${{ secrets.PERSONAL_TOKEN }}
 
-      - name: Add New Allure Report
+      - name: Allure Report action
         uses: simple-elf/allure-report-action@master
+        if: always()
         with:
-          allure_results: example/build/reports/allure-report/allureReport
-          allure_history: allure_history
+          allure_results: example/build/allure-results
+          allure_history: allure-history
+          keep_reports: 5
 
 
       - name: Deploy New Allure Report to Deeplink-Generator-Allure-Report
@@ -51,4 +49,4 @@ jobs:
           personal_token: ${{ secrets.PERSONAL_TOKEN }}
           external_repository: vamotest/Deeplink-Generator-Allure-Report
           publish_branch: gh-pages
-          publish_dir: example/build/reports/allure-report/allureReport
+          publish_dir: allure-history
