@@ -1,6 +1,10 @@
 name: Testing
 
 on:
+  push:
+    branches:
+      - main
+      - "f/**"
   workflow_call:
 
 jobs:
@@ -17,5 +21,29 @@ jobs:
           java-version: '17'
           cache: 'gradle'
 
-      - name: Lint, Unit tests & Coverage
+      - name: Lint, Unit tests, Coverage, and Generate Allure Results
         run: ./gradlew test
+
+      - name: Get Allure History
+        uses: actions/checkout@v4
+        if: always()
+        continue-on-error: true
+        with:
+          ref: gh-pages
+          path: gh-pages
+          token: ${{ secrets.PERSONAL_TOKEN }}
+
+      - name: Add New Allure Report
+        uses: simple-elf/allure-report-action@master
+        if: always()
+        with:
+          allure_results: example/build/allure-results
+          allure_history: allure-history
+          keep_reports: 5
+
+      - name: Deploy New Allure Report to Deeplink-Generator
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          publish_branch: gh-pages
+          publish_dir: allure-history
+          personal_token: ${{ secrets.PERSONAL_TOKEN }}
