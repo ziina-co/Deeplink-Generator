@@ -39,6 +39,7 @@ jobs:
           token: ${{ secrets.PERSONAL_TOKEN }}
           ref: gh-pages
           path: gh-pages
+          submodules: false
 
       - name: Copy Allure History
         run: |
