@@ -30,16 +30,13 @@ jobs:
           name: allure-results
           path: example/build/reports/allure-report/allureReport
 
-      - name: Get Allure history
+      - name: Get Allure History
         uses: actions/checkout@v4
-        if: always()
-        continue-on-error: true
         with:
           repository: vamotest/Deeplink-Generator-Allure-Report
           token: ${{ secrets.PERSONAL_TOKEN }}
           ref: gh-pages
           path: gh-pages
-          submodules: false
 
       - name: Copy Allure History
         run: |
@@ -52,10 +49,10 @@ jobs:
 
       - name: Add New Allure Report
         uses: simple-elf/allure-report-action@master
-        if: always()
         with:
           allure_results: example/build/reports/allure-report/allureReport
           allure_history: example/build/reports/allure-report/allureReport/history
+
 
       - name: Deploy New Allure Report to Deeplink-Generator-Allure-Report
         uses: peaceiris/actions-gh-pages@v3
