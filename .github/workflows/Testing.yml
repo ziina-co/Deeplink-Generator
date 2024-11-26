@@ -43,7 +43,10 @@ jobs:
       - name: Copy Allure History
         run: |
           if [ -d "gh-pages/history" ]; then
-            cp -r gh-pages/history example/build/reports/allure-report/
+              echo "Copying existing history..."
+              cp -r gh-pages/history example/build/reports/allure-report/allureReport/
+          else
+              echo "No history found in gh-pages/history. Skipping."
           fi
 
       - name: Add New Allure Report
@@ -51,7 +54,7 @@ jobs:
         if: always()
         with:
           allure_results: example/build/reports/allure-report/allureReport
-          allure_history: allureReport/history
+          allure_history: example/build/reports/allure-report/allureReport/history
 
       - name: Deploy New Allure Report to Deeplink-Generator-Allure-Report
         uses: peaceiris/actions-gh-pages@v3
