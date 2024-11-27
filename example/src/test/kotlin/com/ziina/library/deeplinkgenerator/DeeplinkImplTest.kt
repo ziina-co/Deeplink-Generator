@@ -24,52 +24,43 @@
 
 package com.ziina.library.deeplinkgenerator
 
-import io.qameta.allure.Epic
-import io.qameta.allure.Feature
-import io.qameta.allure.Story
-import io.qameta.allure.Description
-import io.qameta.allure.Attachment
-import io.qameta.allure.Step
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
-@Epic("Deeplink Parsing")
-@Feature("Deeplink Implementation Tests")
 class DeeplinkImplTest {
-
     @Test
-    @Story("Parse Example1 Deeplink")
-    @Description("Test to verify Example1 deeplink parsing from URL")
     fun testExample1() {
-        val url = "https://example.com/example1"
-        val deeplink = parseDeeplink("Example1", url)
+        val deeplink = DeeplinksImpl
+            .Example1
+            .fromUrl("https://example.com/example1")
+
         assertEquals(DeeplinksImpl.Example1, deeplink)
     }
 
     @Test
-    @Story("Parse Example2 Deeplink")
-    @Description("Test to verify Example2 deeplink parsing from URL")
     fun testExample2() {
-        val url = "https://example.com/example2"
-        val deeplink = parseDeeplink("Example2", url)
+        val deeplink = DeeplinksImpl
+            .Example2
+            .fromUrl("https://example.com/example2")
+
         assertEquals(DeeplinksImpl.Example2, deeplink)
     }
 
     @Test
-    @Story("Parse Example3 Deeplink")
-    @Description("Test to verify Example3 deeplink parsing with parameters")
     fun testExample3() {
-        val url = "https://example.com/example3/123/details/John"
-        val deeplink = parseDeeplink("Example3", url)
+        val deeplink = DeeplinksImpl
+            .Example3
+            .fromUrl("https://example.com/example3/123/details/John")
+
         assertEquals(DeeplinksImpl.Example3("123", "John"), deeplink)
     }
 
     @Test
-    @Story("Parse Example4 Deeplink")
-    @Description("Test to verify Example4 deeplink parsing with locale and query parameters")
     fun testExample4() {
-        val url = "https://example.com/en/example4?name=John&surname=Doe&address=123%20Main%20St"
-        val deeplink = parseDeeplink("Example4", url)
+        val deeplink = DeeplinksImpl
+            .Example4
+            .fromUrl("https://example.com/en/example4?name=John&surname=Doe&address=123%20Main%20St")
+
         assertEquals(
             DeeplinksImpl.Example4(
                 locale = "en",
@@ -82,32 +73,20 @@ class DeeplinkImplTest {
     }
 
     @Test
-    @Story("Parse Example5 Deeplink")
-    @Description("Test to verify Example5 deeplink parsing with specific host")
     fun testExample5() {
-        val url = "https://pay.example.com/123"
-        val deeplink = parseDeeplink("Example5", url)
+        val deeplink = DeeplinksImpl
+            .Example5
+            .fromUrl("https://pay.example.com/123")
+
         assertEquals(DeeplinksImpl.Example5("123"), deeplink)
     }
 
     @Test
-    @Story("Fail Example5 Deeplink with wrong host")
-    @Description("Test to verify that Example5 parsing fails with an incorrect host")
     fun testExample5WrongHost() {
-        val url = "https://example.com/123"
-        val deeplink = parseDeeplink("Example5", url)
-        assertEquals(null, deeplink)
-    }
+        val deeplink = DeeplinksImpl
+            .Example5
+            .fromUrl("https://example.com/123")
 
-    @Step("Parsing deeplink for {name} from URL: {url}")
-    private fun parseDeeplink(name: String, url: String): DeeplinksImpl? {
-        return when (name) {
-            "Example1" -> DeeplinksImpl.Example1.fromUrl(url)
-            "Example2" -> DeeplinksImpl.Example2.fromUrl(url)
-            "Example3" -> DeeplinksImpl.Example3.fromUrl(url)
-            "Example4" -> DeeplinksImpl.Example4.fromUrl(url)
-            "Example5" -> DeeplinksImpl.Example5.fromUrl(url)
-            else -> null
-        }
+        assertEquals(null, deeplink)
     }
 }
