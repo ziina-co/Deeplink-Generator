@@ -31,7 +31,7 @@ jobs:
         with:
           ref: gh-pages
           path: gh-pages
-          repository: vamotest/Deeplink-Generator-Allure-Report
+#          repository: vamotest/Deeplink-Generator-Allure-Report
           token: ${{ secrets.PERSONAL_TOKEN }}
 
       - name: Debug History Content
@@ -53,32 +53,10 @@ jobs:
           allure_history: allure-history
           keep_reports: 5
 
-      - name: Debug Allure Report Output
-        run: |
-          echo "Checking contents of allure-history after report generation:"
-          ls -la allure-history
-          if [ -f "allure-history/index.html" ]; then
-              echo "Generated index.html in allure-history:"
-              cat allure-history/index.html
-          else
-              echo "No index.html generated in allure-history"
-          fi
-
       - name: Deploy New Allure Report to Deeplink-Generator-Allure-Report
         uses: peaceiris/actions-gh-pages@v3
         with:
           personal_token: ${{ secrets.PERSONAL_TOKEN }}
-          external_repository: vamotest/Deeplink-Generator-Allure-Report
+#          external_repository: vamotest/Deeplink-Generator-Allure-Report
           publish_branch: gh-pages
           publish_dir: allure-history
-
-      - name: Debug Published Report
-        run: |
-          echo "Checking contents of gh-pages after deployment:"
-          ls -la gh-pages
-          if [ -f "gh-pages/index.html" ]; then
-              echo "Final index.html in gh-pages:"
-              cat gh-pages/index.html
-          else
-              echo "No index.html found in gh-pages after deployment"
-          fi
