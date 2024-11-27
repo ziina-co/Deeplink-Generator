@@ -26,6 +26,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.google.devtools.ksp)
+    id("io.qameta.allure") version "2.11.2"
 }
 
 android {
@@ -71,4 +72,6 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    testImplementation("io.qameta.allure:allure-junit5:2.20.1")
 }
