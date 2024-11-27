@@ -31,19 +31,7 @@ jobs:
         with:
           ref: gh-pages
           path: gh-pages
-#          repository: vamotest/Deeplink-Generator-Allure-Report
           token: ${{ secrets.PERSONAL_TOKEN }}
-
-      - name: Debug History Content
-        run: |
-          echo "Checking contents of gh-pages before report generation:"
-          ls -la gh-pages
-          if [ -f "gh-pages/index.html" ]; then
-              echo "Found existing index.html in gh-pages:"
-              cat gh-pages/index.html
-          else
-              echo "No index.html found in gh-pages"
-          fi
 
       - name: Allure Report action
         uses: simple-elf/allure-report-action@master
@@ -53,10 +41,9 @@ jobs:
           allure_history: allure-history
           keep_reports: 5
 
-      - name: Deploy New Allure Report to Deeplink-Generator-Allure-Report
+      - name: Deploy New Allure Report to Deeplink-Generator
         uses: peaceiris/actions-gh-pages@v3
         with:
           personal_token: ${{ secrets.PERSONAL_TOKEN }}
-#          external_repository: vamotest/Deeplink-Generator-Allure-Report
           publish_branch: gh-pages
           publish_dir: allure-history
