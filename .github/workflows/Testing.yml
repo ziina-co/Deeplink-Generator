@@ -33,7 +33,7 @@ jobs:
           path: gh-pages
           token: ${{ secrets.PERSONAL_TOKEN }}
 
-      - name: Allure Report action
+      - name: Add New Allure Report
         uses: simple-elf/allure-report-action@master
         if: always()
         with:
@@ -44,6 +44,6 @@ jobs:
       - name: Deploy New Allure Report to Deeplink-Generator
         uses: peaceiris/actions-gh-pages@v3
         with:
-          personal_token: ${{ secrets.PERSONAL_TOKEN }}
           publish_branch: gh-pages
           publish_dir: allure-history
+          personal_token: ${{ secrets.PERSONAL_TOKEN }}
