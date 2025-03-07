@@ -50,7 +50,7 @@ dependencies {
 
 val groupName = "com.ziina.library"
 val artifactName = "deeplinkgenerator"
-val versionName = "0.0.1"
+val versionName = "0.1.0"
 group = groupName
 version = versionName
 
@@ -81,7 +81,7 @@ mavenPublishing {
         scm {
             url.set("https://github.com/ziina-co/Deeplink-Generator")
             connection.set("scm:git@github.com:ziina-co/Deeplink-Generator.git")
-            developerConnection.set("scm:git:ssh://git@github.com/ziina-co/Deeplink-Generatorr.git")
+            developerConnection.set("scm:git:ssh://git@github.com/ziina-co/Deeplink-Generator.git")
         }
     }
 }
