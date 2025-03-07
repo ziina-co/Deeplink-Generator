@@ -296,10 +296,14 @@ class DeeplinkProcessor(
         // Add helper functions
         appendLine(
             """        private fun parseUrl(url: String): ParsedUrl? {
-            val urlObj = runCatching { URL(url) }.getOrElse { return null }
+            val schema = url.indexOf("://").let { if (it == -1) null else url.substring(0, it) }
+
+            val urlObj = runCatching {
+                URL(url.replaceFirst(schema ?: "https", "https"))
+            }.getOrElse { return null }
 
             return ParsedUrl(
-                schema = urlObj.protocol,
+                schema = schema ?: urlObj.protocol,
                 host = urlObj.host,
                 pathSegments = urlObj.path.split("/").filter { it.isNotEmpty() }
                     .map { URLDecoder.decode(it, "UTF-8") },
